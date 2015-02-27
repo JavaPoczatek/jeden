@@ -32,5 +32,5 @@ public class jeden
 		}
 			System.out.println("Limit iloœci licz: " + limit);
 			System.out.println("Wynik: " + wynik + ".");
-		}
+	}
 }
