@@ -7,6 +7,7 @@ public class jeden
 	private static int fizz = 8;
 	private static int buzz = 7;
 	private static String wynik;
+	private static final long start = System.nanoTime();
 	
 	public static void main(String[] args)
 		{
@@ -30,7 +31,9 @@ public class jeden
 			}
 			a++;
 		}
-			System.out.println("Limit iloœci licz: " + limit);
+			System.out.println("Limit iloœci licz: " + limit + ".");
 			System.out.println("Wynik: " + wynik + ".");
+			
+			System.out.println("Czas wykonania: " + ( System.nanoTime() - start ) + ".");
 	}
 }
