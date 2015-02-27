@@ -31,6 +31,6 @@ public class jeden
 			a++;
 		}
 			System.out.println("Limit iloœci licz: " + limit);
-			System.out.println("Wynik: " + wynik);
+			System.out.println("Wynik: " + wynik + ".");
 		}
 }
