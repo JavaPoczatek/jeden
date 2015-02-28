@@ -16,6 +16,11 @@ public class tablice {
 		
 		System.out.println(tableka[5]);
 		
+		pie();
+		
+		int r = (int) (Math.random() * 10);
+		System.out.println(r);
+		
 	}
 	
 	 public static int pie()
