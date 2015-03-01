@@ -5,7 +5,7 @@ public class jeden
 	private static final long start = System.nanoTime();
 	private static int a = 1;
 	private static int limit = 100;
-	private static int fizz = 8;
+	private static int fizz = 5;
 	private static int buzz = 7;
 	private static String wynik;
 	
