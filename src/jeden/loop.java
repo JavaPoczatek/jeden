@@ -6,33 +6,33 @@ public class loop {
 	public static void main(String[] args) throws Exception
 	{
 		int obecnie = (int) ObecnaData();
-		int last = obecnie;
+		int ostatnio = obecnie;
 		
 		System.out.println(obecnie);
-		System.out.println(last);
 		
 		while (true)
 		{
 			obecnie = (int) ObecnaData();
 			
 			Thread.sleep(500);
-			if (obecnie > last)
+			
+			if (obecnie > ostatnio)
 			{
-				last = obecnie;
+				ostatnio = obecnie;
 				
 				System.out.println(obecnie);
 			}
 		}
 	}
 	
-	 public static long ObecnaData()
+	 public static int ObecnaData()
 	 {
-			Calendar c = Calendar.getInstance();
-			int minutes = c.get(Calendar.MINUTE);
-			
-			int obecnie = minutes;
-			
-			return obecnie;
-
+		 Calendar c = Calendar.getInstance();
+		 int dzien = c.get(Calendar.DAY_OF_YEAR);
+		 int rok = c.get(Calendar.YEAR);
+		 
+		 int obecnie = rok * 1000 + dzien;
+		 
+		 return obecnie;
 	 }
 }
