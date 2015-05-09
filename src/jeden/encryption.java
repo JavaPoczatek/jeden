@@ -4,8 +4,6 @@ import java.math.BigInteger;
 import java.util.Calendar;
 
 public class encryption {
-	
-	static Calendar c = Calendar.getInstance();
 
 	public static void main(String[] args)
 	{
