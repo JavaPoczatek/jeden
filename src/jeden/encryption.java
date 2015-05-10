@@ -7,17 +7,19 @@ public class encryption {
 
 	public static void main(String[] args)
 	{
+		String input = "aaatematyka jest œmiszna. Chyba?a";  //List of characters.
+		String output = "";  //List of characters.
 		
 		String tabinput = "QTY6789!@#$%^&*UIOP5)(_+FGHŒ£¯ÑASBfg-=mw012}{ertÓê'D34qhjkló¹,zxc.vbCVn¥pR><asdZXœ?yuioJKL;NMÊ³¿Ÿñ][:WE/\\\" ";  //List of characters.
-		char[][] tab = new char[tabinput.length()][4];
+		char[][] tab = new char[tabinput.length()][5];
 		int[] last = new int[1];
 		
 		BigInteger powKey = key().pow(15);  //Key.
 		
-		for (int i = 0; i < tabinput.length(); i++)  //Assigns original character and 'code'.
+		for (int a = 0; a < tabinput.length(); a++)  //Assigns original character and 'code'.
 		{
-			tab[i][0] = tabinput.charAt(i);  //First column, original character.
-			tab[i][1] = "1".charAt(0);  //Second column, code assign to character.
+			tab[a][0] = tabinput.charAt(a);  //First column, original character.
+			tab[a][1] = "1".charAt(0);  //Second column, code assign to character.
 		}
 		for (int a = 0; a < tabinput.length(); a++)
 		{
@@ -25,7 +27,7 @@ public class encryption {
 			last[0] = last[0] + Character.getNumericValue(tab[a][1]);  //Counts new position of character.
 			if (last[0] >= tabinput.length())  //Check if it is not more than all characters in the table.
 			{
-				last[0] = last[0] - tabinput.length();
+				last[0] -= tabinput.length();
 			}
 			
 			if (Character.getNumericValue(tab[last[0]][1]) == 2)  //Check if new position in the third column is already used. Third column is for the encrypted characters.
@@ -36,7 +38,7 @@ public class encryption {
 						last[0]++;  //Adds one to last[0] and checks again.
 						if (last[0] >= tabinput.length())  //Check if it is not more than characters in the table. Again.
 						{
-							last[0] = last[0] - tabinput.length();
+							last[0] -= tabinput.length();
 						}
 						
 						if (Character.getNumericValue(tab[last[0]][1]) == 1)
@@ -48,8 +50,36 @@ public class encryption {
 					}
 			}
 			tab[last[0]][3] = tab[a][0];  //Assigns the encrypted character in a new place in table.
-			tab[last[0]][1] = "2".charAt(0);  //Assigns 1 in third column in table.
+			tab[last[0]][1] = "2".charAt(0);  //Assigns 2 in third column in table.
 		}
+		
+		last[0] = last[0] % 6;
+		for (int a = 0; a < tabinput.length(); a++)
+		{
+			last[0]++;
+			if (last[0] >= tabinput.length())  //Check if it is not more than all characters in the table. one more time.
+			{
+				last[0] -= tabinput.length();
+			}
+			tab[last[0]][4] = tab[a][3];  //Assigns the encrypted character in a new place in table.
+			tab[last[0]][1] = "3".charAt(0);  //Assigns 3 in third column in table.
+		}
+		
+		//Encrypting.
+		for (int a = 0; a < input.length(); a++)
+		{
+			outerloop:
+				for (int c = 0; c < tabinput.length(); c++)
+				{
+					if (Character.toString(input.charAt(a)).compareTo(Character.toString(tab[c][4])) == 1) {
+						output += tab[c][4];
+						break outerloop;  //Ends.
+					} else {
+						continue;
+					}
+				}
+		}
+		System.out.println(output);
 		
 		//Just checking.
 		System.out.println(powKey);
