@@ -40,7 +40,7 @@ public class encryption {
 						
 						if (Character.getNumericValue(tab[last[0]][3]) != 1)
 						{
-							break outerloop;  //If tab[last[0]][3] is not equal to 1, breaks the loop.
+							break outerloop;  //If tab[last[0]][3] is not equal to 1, breaks the loop. Which means position is free.
 						} else {
 							continue;
 						}
@@ -48,7 +48,6 @@ public class encryption {
 			}
 			tab[last[0]][2] = tab[a][0];  //Assigns the encrypted character in a new place in table.
 			tab[last[0]][3] = "1".charAt(0);  //Assigns 1 in a new place in table.
-			System.out.println(tab[last[0]]);
 		}		
 		
 		System.out.println(powKey);
@@ -58,7 +57,7 @@ public class encryption {
 		}
 	}
 	
-	 public static BigInteger key()  //Key generator. Once every minute.
+	 public static BigInteger key()  //Key generation. Once every minute.
 	 {
 		 Calendar c = Calendar.getInstance();
 		 BigInteger Key = new BigInteger("" + c.get(Calendar.DATE) + c.get(Calendar.MINUTE) + c.get(Calendar.YEAR) + c.get(Calendar.MONTH) + "6" + c.get(Calendar.HOUR_OF_DAY));
