@@ -9,7 +9,7 @@ public class encryption {
 	{
 		
 		String tabinput = "QTY6789!@#$%^&*UIOP5)(_+FGHŒ£¯ÑASBfg-=mw012}{ertÓê'D34qhjkló¹,zxc.vbCVn¥pR><asdZXœ?yuioJKL;NMÊ³¿Ÿñ][:WE/\\\" ";  //List of characters.
-		char[][] tab = new char[tabinput.length()][3];
+		char[][] tab = new char[tabinput.length()][4];
 		int[] last = new int[1];
 		
 		BigInteger powKey = key().pow(15);  //Key.
@@ -27,7 +27,7 @@ public class encryption {
 				last[0] = last[0] - tabinput.length();
 			}
 			
-			if (Integer.toString(tab[last[0]][2]).length() == 2)  //Check if new position in the third column is free. Third column is for the encrypted characters.
+			if (Character.getNumericValue(tab[last[0]][3]) == 1)  //Check if new position in the third column is already used. Third column is for the encrypted characters.
 			{
 				outerloop:
 					for (int c = a; c < tabinput.length(); c++)
@@ -38,15 +38,16 @@ public class encryption {
 							last[0] = last[0] - tabinput.length();
 						}
 						
-						if (Integer.toString(tab[last[0]][2]).length() == 1) 
+						if (Character.getNumericValue(tab[last[0]][3]) != 1)
 						{
-							break outerloop;  //If tab[last[0]][2] is free, breaks the loop.
+							break outerloop;  //If tab[last[0]][3] is not equal to 1, breaks the loop.
 						} else {
 							continue;
 						}
 					}
 			}
 			tab[last[0]][2] = tab[a][0];  //Assigns the encrypted character in a new place in table.
+			tab[last[0]][3] = "1".charAt(0);  //Assigns 1 in a new place in table.
 			System.out.println(tab[last[0]]);
 		}		
 		
