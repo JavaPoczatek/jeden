@@ -7,8 +7,9 @@ public class encryption {
 
 	public static void main(String[] args)
 	{
-		String input = "aaatematyka jest œmiszna. Chyba?a";  //List of characters.
+		String input = "W³¹czaj skajpaja. Mendo spo³eczna.";  //List of characters.
 		String output = "";  //List of characters.
+		String deoutput = "";  //List of characters.
 		
 		String tabinput = "QTY6789!@#$%^&*UIOP5)(_+FGHŒ£¯ÑASBfg-=mw012}{ertÓê'D34qhjkló¹,zxc.vbCVn¥pR><asdZXœ?yuioJKL;NMÊ³¿Ÿñ][:WE/\\\" ";  //List of characters.
 		char[][] tab = new char[tabinput.length()][5];
@@ -71,7 +72,7 @@ public class encryption {
 			outerloop:
 				for (int c = 0; c < tabinput.length(); c++)
 				{
-					if (Character.toString(input.charAt(a)).compareTo(Character.toString(tab[c][4])) == 1) {
+					if (Character.toString(input.charAt(a)).equals(Character.toString(tab[c][0])) == true) {
 						output += tab[c][4];
 						break outerloop;  //Ends.
 					} else {
@@ -80,6 +81,22 @@ public class encryption {
 				}
 		}
 		System.out.println(output);
+		
+		//Decrypting.
+		for (int a = 0; a < output.length(); a++)
+		{
+			outerloop:
+				for (int c = 0; c < tabinput.length(); c++)
+				{
+					if (Character.toString(output.charAt(a)).equals(Character.toString(tab[c][4])) == true) {
+						deoutput += tab[c][0];
+						break outerloop;  //Ends.
+					} else {
+						continue;
+					}
+				}
+		}
+		System.out.println(deoutput);
 		
 		//Just checking.
 		System.out.println(powKey);
