@@ -7,15 +7,16 @@ public class encryption {
 
 	public static void main(String[] args)
 	{
-		String input = "A katol to niestety te¿ zda³.";  //List of characters.
-		String output = "";  //List of characters.
-		String deoutput = "";  //List of characters.
+		String input = "A katol to niestety te¿ zda³.";  //Input String.
+		String output = "";  //Output String.
+		String deoutput = "";  //Decrypted output String.
 		
 		String tabinput = "QTY6789!@#$%^&*UIOP5)(_+FGHŒ£¯ÑASBfg-=mw012}{ertÓê'D34qhjkló¹,zxc.vbCVn¥pR><asdZXœ?yuioJKL;NMÊ³¿Ÿñ][:WE/\\\" ";  //List of characters.
-		char[][] tab = new char[tabinput.length()][4];
-		int[] last = new int[1];
+		char[][] tab = new char[tabinput.length()][5];
+		int[] last = new int[5];
+		String[] keyN = new String[1];
 		
-		BigInteger powKey = new BigInteger("66166").multiply(key().pow(17));  //Key.
+		BigInteger powKey = new BigInteger("6161616").multiply(key().pow(18));  //Key.
 		
 		for (int a = 0; a < tabinput.length(); a++)  //Assigns original character and 'code'.
 		{
@@ -65,13 +66,58 @@ public class encryption {
 		
 		//Encrypting.
 		last[0] = last[0] % 5;
+		last[1] = Character.getNumericValue(tab[0][1]);
 		for (int a = 0; a < input.length(); a++)
 		{
+			last[3] = a;
 			outerloop:
 				for (int c = 0; c < tabinput.length(); c++)
 				{
 					if (Character.toString(input.charAt(a)).equals(Character.toString(tab[c][0])) == true) {
-						output += tab[c][3];
+						if (last[1] == 0) last[1]++;
+						last[2]++;
+						if (last[1] <= last[2]) 
+						{
+							for (int d = 0; d < tabinput.length(); d++)
+							{
+								tab[d][1] = powKey.toString().charAt(d);  //Second column, code assign to character.
+								last[0] = last[0] + Character.getNumericValue(tab[d][1]);  //Counts new position of character.
+								if (last[0] >= tabinput.length())  //Check if it is not more than all characters in the table.
+								{
+									last[0] -= tabinput.length();
+								}
+								
+								if (tab[last[0]][4] != '\u0000')  //Check if new position in the third column is already used. Third column is for the encrypted characters.
+								{
+									outerLoop:
+										for (int e = 0; e < tabinput.length(); e++)
+										{
+											last[0]++;  //Adds one to last[0] and checks again.
+											if (last[0] >= tabinput.length())  //Check if it is not more than characters in the table. Again.
+											{
+												last[0] -= tabinput.length();
+											}
+											
+											if (tab[last[0]][4] == '\u0000')
+											{
+												break outerLoop;  //If tab[last[0]][1] is equal to -1, breaks the loop. Which means position is free.
+											} else {
+												continue;
+											}
+										}
+								}
+								tab[last[0]][4] = tab[d][3];  //Assigns the encrypted character in a new place in table.
+							}
+						}
+						if (last[1] == last[2]) 
+						{
+							keyN[0] = new BigInteger(Integer.toString(last[1])).multiply(powKey).toString();  //Key.
+							if (last[3] > tabinput.length()) last[3] -= tabinput.length();
+							last[1] = Character.getNumericValue(tab[last[3]][1]);
+							last[2] = 0;
+							
+						}
+						output += tab[c][4];
 						break outerloop;  //Ends.
 					} else {
 						continue;
@@ -97,6 +143,7 @@ public class encryption {
 		System.out.println(deoutput);
 		
 		//Just checking.
+		System.out.println(key());
 		System.out.println(powKey);
 		for (int x = 0; x < tabinput.length(); x++)
 		{
@@ -107,8 +154,7 @@ public class encryption {
 	 public static BigInteger key()  //Key generation. Once every minute.
 	 {
 		 Calendar c = Calendar.getInstance();
-		 BigInteger Key = new BigInteger("6" + c.get(Calendar.DATE) + c.get(Calendar.MINUTE) + "616" + c.get(Calendar.HOUR_OF_DAY));
-		 
+		 BigInteger Key = new BigInteger("6" + c.get(Calendar.DATE) + "6" + c.get(Calendar.MINUTE) + "6" + c.get(Calendar.HOUR_OF_DAY));
 		 return Key;
 	 }
 }
