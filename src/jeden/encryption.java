@@ -17,6 +17,7 @@ public class encryption {
 		String[] keyN = new String[1];
 		
 		BigInteger powKey = new BigInteger("6161616").multiply(key().pow(18));  //Key.
+		keyN[0] = powKey.toString();
 		
 		for (int a = 0; a < tabinput.length(); a++)  //Assigns original character and 'code'.
 		{
@@ -24,7 +25,7 @@ public class encryption {
 		}
 		for (int a = 0; a < tabinput.length(); a++)
 		{
-			tab[a][1] = powKey.toString().charAt(a);  //Second column, code assign to character.
+			tab[a][1] = keyN[0].charAt(a);  //Second column, code assign to character.
 			last[0] += Character.getNumericValue(tab[a][1]);  //Counts new position of character.
 			if (last[0] >= tabinput.length())  //Check if it is not more than all characters in the table.
 			{
@@ -53,7 +54,7 @@ public class encryption {
 			tab[last[0]][2] = tab[a][0];  //Assigns the encrypted character in a new place in table.
 		}
 		
-		last[0] = last[0] % 6;
+		last[0] %= 6;
 		for (int a = 0; a < tabinput.length(); a++)
 		{
 			last[0]++;
@@ -65,18 +66,15 @@ public class encryption {
 		}
 		
 		//Encrypting.
-		last[0] %= 5;
-		last[1] = Character.getNumericValue(tab[0][1]);
-		keyN[0] = powKey.toString();
+		last[1] = 1;
 		for (int a = 0; a < input.length(); a++)
 		{
-			if (last[1] == 0)
-			{
-				last[1]++;
-			}
 			last[2]++;
-			if (last[1] <= last[2])
+			
+			if (last[1] == last[2]) 
 			{
+				keyN[0] = new BigInteger(Integer.toString(tab[last[3]][1])).multiply(powKey).toString();  //Key.
+				
 				for (int d = 0; d < tabinput.length(); d++)
 				{
 					tab[d][1] = keyN[0].charAt(d);  //Second column, code assign to character.
@@ -109,27 +107,29 @@ public class encryption {
 				}
 			}
 			
-			if (last[1] == last[2]) 
-			{
-				last[3]++;
-				if (last[3] > tabinput.length())
-				{
-					last[3] -= tabinput.length();
-				}
-				last[1] = Character.getNumericValue(tab[last[3]][1]);
-				last[2] = 0;
-				keyN[0] = new BigInteger(Integer.toString(last[1])).multiply(powKey).toString();  //Key.
-				
-			}
-			
 			outerloop:
 				for (int c = 0; c < tabinput.length(); c++)
 				{
 					if (Character.toString(input.charAt(a)).equals(Character.toString(tab[c][0])) == true) {
 						output += tab[c][4];
-						for (int x = 0; x < tabinput.length(); x++)
+						if (last[1] == last[2]) 
 						{
-							tab[x][4] = '\u0000';
+							last[3]++;
+							if (last[3] > tabinput.length())
+							{
+								last[3] -= tabinput.length();
+							}
+							last[2] = 0;
+							last[1] = Character.getNumericValue(tab[last[3]][1]);
+							if (last[1] == 0)
+							{
+								last[1]++;
+							}
+							
+							for (int x = 0; x < tabinput.length(); x++)
+							{
+								tab[x][4] = '\u0000';
+							}
 						}
 						break outerloop;  //Ends.
 					} else {
