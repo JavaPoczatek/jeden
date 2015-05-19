@@ -7,12 +7,12 @@ public class encryption {
 
 	public static void main(String[] args)
 	{
-		String input = "Kanapka z chlebem.";  //Input String.
+		String input = "D³ugi text. Ale nie, a¿ tak bardzo d³ugi, jak mog³o by siê wydawaæ po iloœci znaków. Naprawdê, czasem mo¿na by by³o nawet jakiœ referacik tym wysa³c... ale w sumie po co?!";  //Input String.
 		String output = "";  //Output String.
 		
-		String tabinput = "QTY6789!@#$%^&*UIOP5)(_+FGHŒ£¯ÑASBfg-=mw012}{ertÓê'D34qhjkló¹,zxc.vbCVn¥pR><asdZXœ?yuioJKL;NMÊ³¿Ÿñ][:WE/\\\" ";  //List of characters.
+		String tabinput = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnmÊÓ¥Œ£¯ÆÑêó¹œ³¿Ÿæñ1234567890~`!@#$%^&*()_+-=[];',./{}:<>? ";  //List of characters.
 		char[][] tab = new char[tabinput.length()][5];
-		int[] last = new int[5];
+		int[] last = new int[4];
 		String[] keyN = new String[1];
 		
 		BigInteger powKey = new BigInteger("6161616").multiply(key().pow(18));  //Key.
@@ -113,13 +113,14 @@ public class encryption {
 			outerloop:
 				for (int c = 0; c < tabinput.length(); c++)
 				{
-					if (Character.toString(input.charAt(a)).equals(Character.toString(tab[c][0])) == true) {
+					if (Character.toString(input.charAt(a)).equals(Character.toString(tab[c][0])) == true) 
+					{
 						output += tab[c][4];
 						
 						if (last[1] == last[2]) 
 						{
 							last[3]++;
-							if (last[3] > tabinput.length())
+							if (last[3] >= tabinput.length())
 							{
 								last[3] -= tabinput.length();
 							}
@@ -136,6 +137,22 @@ public class encryption {
 					}
 				}
 		}
+		
+		//Adding key.
+		keyN[0] = key().toString();
+		keybreak:
+			for (int c = 100; c > 0; c--)
+			{
+				if (Integer.parseInt(keyN[0]) % c == 0)
+				{
+					int partkey = Integer.parseInt(keyN[0]) / c; 
+					output = partkey + ":" + c + ":" + output;
+					break keybreak;  //Ends.
+				} else {
+					continue;
+				}
+			}
+		
 		System.out.println(output);
 	}
 	

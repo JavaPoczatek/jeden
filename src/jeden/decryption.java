@@ -7,15 +7,36 @@ public class decryption {
 
 	public static void main(String[] args)
 	{
-		String input = "m¿od3L.+OYk¿,¥";  //Input String.
+		String input = "1674753:37:$œYBOÓM¥ŸM?ÓBWa,f8am2ñ42Yñf tsFŸLlC50¥{æm8THmd!qæ!-ócr=ZU6f6T¿¥¿[fêy³Xz5#M0?yRê¿£4!cMRiz<y^TfM_EUY@ó@æzXyj¿Pj¿£jiNcA0&>(d+QG5LzŸzssñmÑ'xl5Ñig(£/:B  qóDqp2+Vx7Æ/0P/#ÑVT";  //Input String.
 		String deoutput = "";  //Output String.
 		
-		String tabinput = "QTY6789!@#$%^&*UIOP5)(_+FGHŒ£¯ÑASBfg-=mw012}{ertÓê'D34qhjkló¹,zxc.vbCVn¥pR><asdZXœ?yuioJKL;NMÊ³¿Ÿñ][:WE/\\\" ";  //List of characters.
+		String tabinput = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnmÊÓ¥Œ£¯ÆÑêó¹œ³¿Ÿæñ1234567890~`!@#$%^&*()_+-=[];',./{}:<>? ";  //List of characters.
 		char[][] tab = new char[tabinput.length()][5];
 		int[] last = new int[5];
 		String[] keyN = new String[1];
 		
-		BigInteger powKey = new BigInteger("6161616").multiply(key().pow(18));  //Key.
+		//Extracting key.
+		keybreak:
+			for (int c = 0; c < input.length(); c++)
+			{
+				if (Character.toString(input.charAt(c)).equals(":".toString()) == true)
+				{
+					for (int d = c + 1; d < input.length(); d++)
+					{
+						if (Character.toString(input.charAt(d)).equals(":".toString()) == true)
+						{
+							BigInteger key = new BigInteger(input.substring(0, c)).multiply(new BigInteger(input.substring(c + 1, d)));
+							keyN[0] = key.toString();
+							input = input.substring(d + 1, input.length());
+							break keybreak;  //Ends.
+						}
+					}
+				} else {
+					continue;
+				}
+			}
+		
+		BigInteger powKey = new BigInteger("6161616").multiply(new BigInteger(keyN[0]).pow(18));  //Key.
 		keyN[0] = powKey.toString();
 		
 		for (int a = 0; a < tabinput.length(); a++)  //Assigns original character and 'code'.
@@ -119,7 +140,7 @@ public class decryption {
 						if (last[1] == last[2]) 
 						{
 							last[3]++;
-							if (last[3] > tabinput.length())
+							if (last[3] >= tabinput.length())
 							{
 								last[3] -= tabinput.length();
 							}
