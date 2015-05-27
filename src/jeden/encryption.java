@@ -7,7 +7,7 @@ public class encryption {
 
 	public static void main(String[] args)
 	{
-		String input = "D³ugi text. Ale nie, a¿ tak bardzo d³ugi, jak mog³o by siê wydawaæ po iloœci znaków. Naprawdê, czasem mo¿na by by³o nawet jakiœ referacik tym wysa³c... ale w sumie po co?!";  //Input String.
+		String input = "Mentorkie sejwnij.";  //Input String.
 		String output = "";  //Output String.
 		
 		String tabinput = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnmÊÓ¥Œ£¯ÆÑêó¹œ³¿Ÿæñ1234567890~`!@#$%^&*()_+-=[];',./{}:<>? ";  //List of characters.

@@ -7,12 +7,12 @@ public class decryption {
 
 	public static void main(String[] args)
 	{
-		String input = "1674753:37:$œYBOÓM¥ŸM?ÓBWa,f8am2ñ42Yñf tsFŸLlC50¥{æm8THmd!qæ!-ócr=ZU6f6T¿¥¿[fêy³Xz5#M0?yRê¿£4!cMRiz<y^TfM_EUY@ó@æzXyj¿Pj¿£jiNcA0&>(d+QG5LzŸzssñmÑ'xl5Ñig(£/:B  qóDqp2+Vx7Æ/0P/#ÑVT";  //Input String.
+		String input = "47664971:13:b!}Óq!Qó_ZtFCOTpCQ";  //Input String.
 		String deoutput = "";  //Output String.
 		
 		String tabinput = "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnmÊÓ¥Œ£¯ÆÑêó¹œ³¿Ÿæñ1234567890~`!@#$%^&*()_+-=[];',./{}:<>? ";  //List of characters.
 		char[][] tab = new char[tabinput.length()][5];
-		int[] last = new int[5];
+		int[] last = new int[4];
 		String[] keyN = new String[1];
 		
 		//Extracting key.
